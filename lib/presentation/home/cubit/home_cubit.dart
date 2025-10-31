@@ -4,9 +4,9 @@ import '../../../domain/coffee_repository.dart';
 import '../export_home.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  final CoffeeRepository _repository;
+  final ICoffeeRepository _repository;
 
-  HomeCubit({required CoffeeRepository repository})
+  HomeCubit({required ICoffeeRepository repository})
     : _repository = repository,
       super(InitialHomeState());
 
