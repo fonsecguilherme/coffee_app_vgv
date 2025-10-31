@@ -23,6 +23,8 @@ class FavoriteView extends StatelessWidget {
               final coffee = state.favorites[index];
               return Padding(
                 padding: const EdgeInsets.all(8.0),
+                
+                //TODO: Add dismissible to remove favorite https://docs.flutter.dev/cookbook/gestures/dismissible
                 child: Card(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

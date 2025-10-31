@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:coffee_app_vgv/domain/coffee_model.dart';
+import 'package:coffee_app_vgv/domain/model/coffee_model.dart';
 import 'package:dartz/dartz.dart';
 
 import '../core/exceptions.dart';

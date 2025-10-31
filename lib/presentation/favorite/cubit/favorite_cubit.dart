@@ -1,4 +1,4 @@
-import 'package:coffee_app_vgv/domain/coffee_model.dart';
+import 'package:coffee_app_vgv/domain/model/coffee_model.dart';
 import 'package:coffee_app_vgv/presentation/favorite/export_favorite.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
