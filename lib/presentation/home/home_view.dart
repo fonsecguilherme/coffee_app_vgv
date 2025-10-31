@@ -1,3 +1,4 @@
+import 'package:coffee_app_vgv/presentation/favorite/export_favorite.dart';
 import 'package:coffee_app_vgv/presentation/home/export_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,13 +11,14 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  //TODO: add favorite cubit
   HomeCubit get cubit => context.read<HomeCubit>();
+  FavoriteCubit get favoriteCubit => context.read<FavoriteCubit>();
 
   @override
   void initState() {
     super.initState();
     cubit.fetchCoffee();
+    favoriteCubit.fetchFavorites();
   }
 
   @override
@@ -46,7 +48,10 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   const Text('Did you like this coffee?'),
                   ElevatedButton(
-                    onPressed: () => cubit.fetchCoffee(),
+                    onPressed: () {
+                      favoriteCubit.addFavorite(coffee);
+                      favoriteCubit.fetchFavorites();
+                    },
                     child: const Text('Like'),
                   ),
                 ],
