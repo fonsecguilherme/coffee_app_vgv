@@ -1,4 +1,4 @@
-import 'package:coffee_app_vgv/presentation/favorite/favorite_view.dart';
+import 'package:coffee_app_vgv/presentation/favorite/export_favorite.dart';
 import 'package:coffee_app_vgv/presentation/navigation/export_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +14,7 @@ class NavigationView extends StatefulWidget {
 
 class _NavigationViewState extends State<NavigationView> {
   NavigationCubit get navigationCubit => context.read<NavigationCubit>();
+  FavoriteCubit get favoriteCubit => context.read<FavoriteCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +36,14 @@ class _NavigationViewState extends State<NavigationView> {
                 label: 'Home',
               ),
               NavigationDestination(
-                selectedIcon: Icon(Icons.favorite),
-                icon: Badge(child: Icon(Icons.favorite_outline)),
+                selectedIcon: Badge.count(
+                  count: favoriteCubit.state.favorites.length,
+                  child: Icon(Icons.favorite),
+                ),
+                icon: Badge.count(
+                  count: favoriteCubit.state.favorites.length,
+                  child: Icon(Icons.favorite_outline),
+                ),
                 label: 'Favorite',
               ),
             ],
