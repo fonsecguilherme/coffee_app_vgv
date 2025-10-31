@@ -19,7 +19,6 @@ class _HomeViewState extends State<HomeView>
   void initState() {
     super.initState();
     cubit.fetchCoffee();
-    favoriteCubit.fetchFavorites();
   }
 
   @override
@@ -36,7 +35,6 @@ class _HomeViewState extends State<HomeView>
               LoadedHomeState(coffee: final coffee) => Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 spacing: 8.0,
-
                 children: [
                   SizedBox(
                     height: 300,
@@ -52,7 +50,12 @@ class _HomeViewState extends State<HomeView>
                   ElevatedButton(
                     onPressed: () {
                       favoriteCubit.addFavorite(coffee);
-                      favoriteCubit.fetchFavorites();
+
+                      SnackBar snackBar = SnackBar(
+                        content: Text('Image added to favorites!'),
+                        duration: const Duration(seconds: 2),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                     child: const Text('Like'),
                   ),
