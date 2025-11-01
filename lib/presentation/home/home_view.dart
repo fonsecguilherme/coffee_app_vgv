@@ -1,3 +1,4 @@
+import 'package:coffee_app_vgv/core/notification_service.dart';
 import 'package:coffee_app_vgv/presentation/favorite/export_favorite.dart';
 import 'package:coffee_app_vgv/presentation/home/export_home.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,13 @@ class _HomeViewState extends State<HomeView>
                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                     child: const Text('Like'),
+                  ),
+
+                  IconButton.filled(
+                    onPressed: () {
+                      NotificationService().showNotification();
+                    },
+                    icon: Icon(Icons.add),
                   ),
                 ],
               ),
