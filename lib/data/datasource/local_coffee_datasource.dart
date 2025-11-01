@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:path_provider/path_provider.dart';
 
@@ -9,6 +10,7 @@ abstract class ILocalDataSource {
   Future<List<CoffeeModel>> getAll();
   Future<void> clear();
   Future<void> remove(String path);
+  Future<String> getSingleImagePath();
 }
 
 class LocalCoffeeDataSource implements ILocalDataSource {
@@ -110,5 +112,51 @@ class LocalCoffeeDataSource implements ILocalDataSource {
     } catch (e) {
       return [];
     }
+  }
+
+  @override
+  Future<String> getSingleImagePath() async {
+    try {
+      final files = await _getImageFiles();
+      if (files.isEmpty) throw Exception('No images available');
+
+      final random = Random();
+      final selectedFile = files[random.nextInt(files.length)];
+
+      final baseDir = await getApplicationDocumentsDirectory();
+      final tempDir = Directory('${baseDir.path}/notifications_temp');
+
+      if (!await tempDir.exists()) {
+        await tempDir.create(recursive: true);
+      }
+
+      final tempFileName =
+          'notification_${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final tempFile = File('${tempDir.path}/$tempFileName');
+
+      await selectedFile.copy(tempFile.path);
+
+      _cleanupOldTempFiles(tempDir);
+
+      return tempFile.path;
+    } catch (e) {
+      throw Exception('Error retrieving image path: $e');
+    }
+  }
+
+  Future<void> _cleanupOldTempFiles(Directory tempDir) async {
+    try {
+      final files = tempDir.listSync().whereType<File>().toList();
+
+      if (files.length > 5) {
+        files.sort(
+          (a, b) => b.lastModifiedSync().compareTo(a.lastModifiedSync()),
+        );
+        final oldFiles = files.skip(5);
+        for (final file in oldFiles) {
+          await file.delete();
+        }
+      }
+    } catch (_) {}
   }
 }
