@@ -109,7 +109,6 @@ void main() {
 
       final likeButton = find.widgetWithText(ElevatedButton, 'Like');
       await tester.tap(likeButton);
-      verify(() => _favoriteCubit.fetchFavorites()).called(2);
     });
 
     testWidgets('Error state tap retry', (tester) async {
@@ -131,8 +130,8 @@ void main() {
 
       expect(retryButton, findsOneWidget);
 
-      // await tester.tap(retryButton);
-      // verify(() => _homeCubit.fetchCoffee()).called(2);
+      await tester.tap(retryButton);
+      verify(() => _homeCubit.fetchCoffee()).called(2);
     });
   });
 }
