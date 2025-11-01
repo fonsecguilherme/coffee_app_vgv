@@ -15,6 +15,8 @@ class _HomeViewState extends State<HomeView>
     with AutomaticKeepAliveClientMixin {
   HomeCubit get cubit => context.read<HomeCubit>();
   FavoriteCubit get favoriteCubit => context.read<FavoriteCubit>();
+  NotificationService get notificationService =>
+      context.read<NotificationService>();
 
   @override
   void initState() {
@@ -62,9 +64,7 @@ class _HomeViewState extends State<HomeView>
                   ),
 
                   IconButton.filled(
-                    onPressed: () {
-                      NotificationService().showNotification();
-                    },
+                    onPressed: () => notificationService.showNotification(),
                     icon: Icon(Icons.add),
                   ),
                 ],
