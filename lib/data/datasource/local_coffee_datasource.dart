@@ -11,8 +11,6 @@ abstract class ILocalDataSource {
   Future<void> remove(String path);
 }
 
-//Adicionar o try catch em cada operação
-
 class LocalCoffeeDataSource implements ILocalDataSource {
   @override
   Future<void> save(CoffeeModel coffee) async {
