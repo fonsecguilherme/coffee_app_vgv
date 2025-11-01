@@ -12,7 +12,6 @@ class CoffeeRepository implements ICoffeeRepository {
 
   CoffeeRepository({required this.httpClient});
 
-  //TODO:Refatorar pra só baixar a imagem na hora de salvar
   @override
   Future<Either<Failure, CoffeeModel>> fetchCoffeeData() async {
     try {
