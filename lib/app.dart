@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/http_client.dart';
 import 'data/datasource/local_coffee_datasource.dart';
 import 'domain/coffee_repository.dart';
+import 'domain/repositories/i_coffee_repository.dart';
+import 'domain/service/i_http_client.dart';
 import 'presentation/navigation/export_navigation.dart';
 
 class App extends StatelessWidget {

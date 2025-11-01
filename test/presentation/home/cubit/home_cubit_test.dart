@@ -1,7 +1,7 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:coffee_app_vgv/core/exceptions.dart';
-import 'package:coffee_app_vgv/domain/coffee_repository.dart';
 import 'package:coffee_app_vgv/domain/model/coffee_model.dart';
+import 'package:coffee_app_vgv/domain/repositories/i_coffee_repository.dart';
 import 'package:coffee_app_vgv/presentation/home/export_home.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
