@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:coffee_app_vgv/presentation/favorite/export_favorite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,7 +47,7 @@ class _FavoriteViewState extends State<FavoriteView> {
               final coffee = state.favorites[index];
               return Ink.image(
                 fit: BoxFit.cover,
-                image: AssetImage(coffee.localPath!),
+                image: FileImage(File(coffee.localPath!)),
                 child: InkWell(
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
