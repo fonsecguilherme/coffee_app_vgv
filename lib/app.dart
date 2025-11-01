@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/http_client.dart';
+import 'data/datasource/local_coffee_datasource.dart';
 import 'domain/coffee_repository.dart';
+import 'domain/repositories/i_coffee_repository.dart';
+import 'domain/service/i_http_client.dart';
 import 'presentation/navigation/export_navigation.dart';
 
 class App extends StatelessWidget {
@@ -20,15 +23,20 @@ class App extends StatelessWidget {
             create: (context) =>
                 CoffeeRepository(httpClient: context.read<IHttpClient>()),
           ),
+          RepositoryProvider<ILocalDataSource>(
+            create: (context) => LocalCoffeeDataSource(),
+          ),
         ],
         child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (context) => NavigationCubit()),
             BlocProvider(
               create: (context) =>
                   HomeCubit(repository: context.read<ICoffeeRepository>()),
             ),
-            BlocProvider(create: (context) => FavoriteCubit()),
+            BlocProvider(
+              create: (context) =>
+                  FavoriteCubit(context.read<ILocalDataSource>()),
+            ),
           ],
           child: NavigationView(),
         ),

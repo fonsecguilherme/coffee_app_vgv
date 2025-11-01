@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../domain/coffee_repository.dart';
+import '../../../domain/repositories/i_coffee_repository.dart';
 import '../export_home.dart';
 
 class HomeCubit extends Cubit<HomeState> {

@@ -10,7 +10,8 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _HomeViewState extends State<HomeView>
+    with AutomaticKeepAliveClientMixin {
   HomeCubit get cubit => context.read<HomeCubit>();
   FavoriteCubit get favoriteCubit => context.read<FavoriteCubit>();
 
@@ -18,11 +19,11 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     cubit.fetchCoffee();
-    favoriteCubit.fetchFavorites();
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Home View')),
       body: Center(
@@ -34,7 +35,6 @@ class _HomeViewState extends State<HomeView> {
               LoadedHomeState(coffee: final coffee) => Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 spacing: 8.0,
-
                 children: [
                   SizedBox(
                     height: 300,
@@ -50,7 +50,12 @@ class _HomeViewState extends State<HomeView> {
                   ElevatedButton(
                     onPressed: () {
                       favoriteCubit.addFavorite(coffee);
-                      favoriteCubit.fetchFavorites();
+
+                      SnackBar snackBar = SnackBar(
+                        content: Text('Image added to favorites!'),
+                        duration: const Duration(seconds: 2),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
                     child: const Text('Like'),
                   ),
@@ -76,4 +81,7 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
