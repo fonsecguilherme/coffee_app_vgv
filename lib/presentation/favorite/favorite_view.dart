@@ -63,11 +63,7 @@ class _FavoriteViewState extends State<FavoriteView> {
                       files: [XFile(coffee.localPath!)],
                     );
 
-                    final result = await SharePlus.instance.share(params);
-
-                    if (result.status == ShareResultStatus.dismissed) {
-                      print('Did you not like the pictures?');
-                    }
+                    await SharePlus.instance.share(params);
                   },
                 ),
               );
