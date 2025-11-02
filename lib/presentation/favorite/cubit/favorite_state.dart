@@ -11,15 +11,14 @@ final class InitialFavoriteState extends FavoriteState {
   const InitialFavoriteState() : super(favorites: const []);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [favorites];
 }
 
 final class LoadFavoriteState extends FavoriteState {
   LoadFavoriteState({required super.favorites})
     : assert(favorites.isNotEmpty, 'A lista de favoritos não pode estar vazia');
-
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [favorites];
 }
 
 final class ErrorFavoriteState extends FavoriteState {
@@ -28,5 +27,5 @@ final class ErrorFavoriteState extends FavoriteState {
   ErrorFavoriteState({required this.message}) : super(favorites: []);
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [message, favorites];
 }
