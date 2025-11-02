@@ -40,7 +40,7 @@ class NotificationService {
     await androidImplementation?.requestNotificationsPermission();
   }
 
-  Future<void> fetchCoffee() async {
+  Future<void> fetchCoffeeFromDB() async {
     final images = await localDataSource.getAll();
 
     for (var image in images) {
@@ -49,7 +49,7 @@ class NotificationService {
   }
 
   Future<NotificationDetails> notificationDetails() async {
-    await fetchCoffee();
+    await fetchCoffeeFromDB();
 
     if (localImages.isEmpty) {
       const androidDetails = AndroidNotificationDetails(
