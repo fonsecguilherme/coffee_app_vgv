@@ -81,6 +81,26 @@ void main() {
 
         expect(File(path).existsSync(), false);
       });
+
+      test('GetSingleImagePath return single image', () async {
+        final bytes = Uint8List.fromList([1, 2, 3]);
+
+        final coffee = CoffeeModel(
+          file: 'https://example.com/coffee.jpg',
+          bytes: bytes,
+        );
+        final coffee2 = CoffeeModel(
+          file: 'https://example.com/coffee2.jpg',
+          bytes: bytes,
+        );
+
+        await dataSource.save(coffee);
+        await dataSource.save(coffee2);
+
+        final result = await dataSource.getSingleImagePath();
+
+        expect(result, isA<String>());
+      });
     });
 
     group('Exception cases | ', () {
