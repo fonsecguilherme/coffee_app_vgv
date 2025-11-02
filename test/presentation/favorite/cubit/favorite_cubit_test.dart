@@ -65,7 +65,7 @@ void main() {
     blocTest<FavoriteCubit, FavoriteState>(
       'AddFavorite emits [InitialFavoriteState] when an empty list is returned.',
       build: () {
-        when(() => _localDataSource.save(any())).thenAnswer((_) async => {});
+        when(() => _localDataSource.save(any())).thenAnswer((_) async => true);
 
         when(() => _localDataSource.getAll()).thenAnswer((_) async => []);
 
@@ -79,7 +79,7 @@ void main() {
       'AddFavorite emits [LoadFavoriteState] when return a populated list.',
 
       build: () {
-        when(() => _localDataSource.save(any())).thenAnswer((_) async => {});
+        when(() => _localDataSource.save(any())).thenAnswer((_) async => true);
 
         when(
           () => _localDataSource.getAll(),
@@ -90,13 +90,15 @@ void main() {
       act: (cubit) => cubit.addFavorite(CoffeeModel(file: 'file')),
       expect: () => <FavoriteState>[
         LoadFavoriteState(favorites: [CoffeeModel(file: 'file')]),
+        SuccessAddCoffeeFavoriteState(favorites: [CoffeeModel(file: 'file')]),
+        LoadFavoriteState(favorites: [CoffeeModel(file: 'file')]),
       ],
     );
 
     blocTest<FavoriteCubit, FavoriteState>(
       'AddFavorite emits [ErrorFavoriteState] when datasource returns an exception.',
       build: () {
-        when(() => _localDataSource.save(any())).thenAnswer((_) async => {});
+        when(() => _localDataSource.save(any())).thenAnswer((_) async => true);
 
         when(() => _localDataSource.getAll()).thenAnswer(
           (_) async => Future.error(Exception('Exception in addFavorite')),

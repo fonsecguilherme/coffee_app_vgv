@@ -25,6 +25,8 @@ void main() {
   testWidgets('Find inital state', (tester) async {
     when(() => _homeCubit.state).thenReturn(InitialHomeState());
 
+    when(() => _favoriteCubit.state).thenReturn(InitialFavoriteState());
+
     when(() => _homeCubit.fetchCoffee()).thenAnswer((_) async {});
 
     when(() => _favoriteCubit.fetchFavorites()).thenAnswer((_) async {});
@@ -35,6 +37,8 @@ void main() {
   });
   testWidgets('Find loading state', (tester) async {
     when(() => _homeCubit.state).thenReturn(LoadingHomeState());
+
+    when(() => _favoriteCubit.state).thenReturn(InitialFavoriteState());
 
     when(() => _homeCubit.fetchCoffee()).thenAnswer((_) async {});
 
@@ -49,6 +53,8 @@ void main() {
     when(
       () => _homeCubit.state,
     ).thenReturn(ErrorHomeState(message: 'Error fetching coffee'));
+
+    when(() => _favoriteCubit.state).thenReturn(InitialFavoriteState());
 
     when(() => _homeCubit.fetchCoffee()).thenAnswer((_) async {});
 
@@ -69,6 +75,8 @@ void main() {
   testWidgets('Find loaded state', (tester) async {
     final coffee = CoffeeModel(file: 'fakeUrl');
 
+    when(() => _favoriteCubit.state).thenReturn(InitialFavoriteState());
+
     when(() => _homeCubit.state).thenReturn(LoadedHomeState(coffee: coffee));
 
     when(() => _homeCubit.fetchCoffee()).thenAnswer((_) async {});
@@ -88,6 +96,8 @@ void main() {
       final coffee = CoffeeModel(file: 'fakeUrl');
 
       when(() => _homeCubit.state).thenReturn(LoadedHomeState(coffee: coffee));
+
+      when(() => _favoriteCubit.state).thenReturn(InitialFavoriteState());
 
       when(() => _homeCubit.fetchCoffee()).thenAnswer((_) async {});
 
@@ -117,6 +127,8 @@ void main() {
       when(
         () => _homeCubit.state,
       ).thenReturn(ErrorHomeState(message: 'Error fetching coffee'));
+
+      when(() => _favoriteCubit.state).thenReturn(InitialFavoriteState());
 
       when(() => _homeCubit.fetchCoffee()).thenAnswer((_) async {});
 
