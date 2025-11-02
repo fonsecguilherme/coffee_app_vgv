@@ -1,6 +1,8 @@
 
 ---
 
+<img width="335" height="113" alt="vgv_logo" src="https://github.com/user-attachments/assets/4646ab16-6d9a-4b7b-a368-950b7cefc43f" />
+
 # Coffee App - VGV Challenge
 
 This project was developed as part of the **VGV technical challenge**, and it’s an application focused on displaying coffee pictures.
