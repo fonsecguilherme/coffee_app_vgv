@@ -7,6 +7,7 @@ class AppStrings {
   static const String homeDidntLikeCoffeeText = 'Didn\'t like this coffee?';
   static const String homeAnotherOneButtonText = 'Another one';
   static const String homeDidYouLikeCoffeeText = 'Did you like this coffee?';
+  static const String homeSendLocalNotificationText = 'Send local notification';
   static const String homeLikeButtonText = 'Like';
   static const String homeRetryButtonText = 'Retry';
 
