@@ -72,6 +72,8 @@ class _FavoriteViewState extends State<FavoriteView> {
           ErrorFavoriteState() => Center(
             child: Text('Error: ${state.message}'),
           ),
+
+          _ => const Center(child: Text('Default state')),
         };
       },
     ),
