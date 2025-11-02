@@ -41,8 +41,6 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       }
       emit(SuccessAddCoffeeFavoriteState(favorites: updatedFavorites));
       emit(LoadFavoriteState(favorites: updatedFavorites));
-
-      fetchFavorites();
     } catch (e) {
       emit(ErrorFavoriteState(message: e.toString()));
     }
