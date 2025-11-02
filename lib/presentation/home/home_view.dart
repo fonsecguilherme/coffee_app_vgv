@@ -1,4 +1,3 @@
-import 'package:coffee_app_vgv/app.dart';
 import 'package:coffee_app_vgv/core/notification_service.dart';
 import 'package:coffee_app_vgv/presentation/favorite/export_favorite.dart';
 import 'package:coffee_app_vgv/presentation/home/export_home.dart';
@@ -51,31 +50,33 @@ class _HomeViewState extends State<HomeView>
                   child: Text('Initial widget'),
                 ),
                 LoadingHomeState() => const CircularProgressIndicator(),
-                LoadedHomeState(coffee: final coffee) => Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  spacing: 8.0,
-                  children: [
-                    SizedBox(
-                      height: 300,
-                      width: 300,
-                      child: Image.network(coffee.file),
-                    ),
-                    const Text(AppStrings.homeDidntLikeCoffeeText),
-                    ElevatedButton(
-                      onPressed: () => cubit.fetchCoffee(),
-                      child: const Text(AppStrings.homeAnotherOneButtonText),
-                    ),
-                    const Text(AppStrings.homeDidYouLikeCoffeeText),
-                    ElevatedButton(
-                      onPressed: () => favoriteCubit.addFavorite(coffee),
-                      child: const Text(AppStrings.homeLikeButtonText),
-                    ),
-
-                    IconButton.filled(
-                      onPressed: () => notificationService.showNotification(),
-                      icon: Icon(Icons.add),
-                    ),
-                  ],
+                LoadedHomeState(coffee: final coffee) => SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 8.0,
+                    children: [
+                      SizedBox(
+                        height: 300,
+                        width: 300,
+                        child: Image.network(coffee.file),
+                      ),
+                      const Text(AppStrings.homeDidntLikeCoffeeText),
+                      ElevatedButton(
+                        onPressed: () => cubit.fetchCoffee(),
+                        child: const Text(AppStrings.homeAnotherOneButtonText),
+                      ),
+                      const Text(AppStrings.homeDidYouLikeCoffeeText),
+                      ElevatedButton(
+                        onPressed: () => favoriteCubit.addFavorite(coffee),
+                        child: const Text(AppStrings.homeLikeButtonText),
+                      ),
+                      const Text(AppStrings.homeSendLocalNotificationText),
+                      IconButton.filled(
+                        onPressed: () => notificationService.showNotification(),
+                        icon: Icon(Icons.add),
+                      ),
+                    ],
+                  ),
                 ),
                 ErrorHomeState(message: final message) => Column(
                   mainAxisAlignment: MainAxisAlignment.center,
