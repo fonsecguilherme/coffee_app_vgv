@@ -21,6 +21,18 @@ final class LoadFavoriteState extends FavoriteState {
   List<Object?> get props => [favorites];
 }
 
+final class SuccessAddCoffeeFavoriteState extends FavoriteState {
+  final String message;
+
+  const SuccessAddCoffeeFavoriteState({
+    required super.favorites,
+    this.message = 'Coffee added to favorites successfully',
+  });
+
+  @override
+  List<Object?> get props => [favorites, message];
+}
+
 final class ErrorFavoriteState extends FavoriteState {
   final String message;
 

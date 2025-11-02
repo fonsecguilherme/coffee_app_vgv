@@ -30,61 +30,67 @@ class _HomeViewState extends State<HomeView>
     return Scaffold(
       appBar: AppBar(title: const Text('Home View')),
       body: Center(
-        child: BlocBuilder<HomeCubit, HomeState>(
-          builder: (context, state) {
-            return switch (state) {
-              InitialHomeState() => const Center(child: Text('Initial widget')),
-              LoadingHomeState() => const CircularProgressIndicator(),
-              LoadedHomeState(coffee: final coffee) => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 8.0,
-                children: [
-                  SizedBox(
-                    height: 300,
-                    width: 300,
-                    child: Image.network(coffee.file),
-                  ),
-                  const Text('Didn\'t like this coffee?'),
-                  ElevatedButton(
-                    onPressed: () => cubit.fetchCoffee(),
-                    child: const Text('Another one'),
-                  ),
-                  const Text('Did you like this coffee?'),
-                  ElevatedButton(
-                    onPressed: () {
-                      favoriteCubit.addFavorite(coffee);
-
-                      SnackBar snackBar = SnackBar(
-                        content: Text('Image added to favorites!'),
-                        duration: const Duration(seconds: 2),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    },
-                    child: const Text('Like'),
-                  ),
-
-                  IconButton.filled(
-                    onPressed: () => notificationService.showNotification(),
-                    icon: Icon(Icons.add),
-                  ),
-                ],
-              ),
-              ErrorHomeState(message: final message) => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 8.0,
-                children: [
-                  Text(
-                    'Error: $message',
-                    style: const TextStyle(color: Colors.red),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => cubit.fetchCoffee(),
-                    child: const Text('Retry'),
-                  ),
-                ],
-              ),
-            };
+        child: BlocListener<FavoriteCubit, FavoriteState>(
+          listener: (context, state) {
+            if (state is SuccessAddCoffeeFavoriteState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  duration: const Duration(seconds: 2),
+                ),
+              );
+            }
           },
+          child: BlocBuilder<HomeCubit, HomeState>(
+            builder: (context, state) {
+              return switch (state) {
+                InitialHomeState() => const Center(
+                  child: Text('Initial widget'),
+                ),
+                LoadingHomeState() => const CircularProgressIndicator(),
+                LoadedHomeState(coffee: final coffee) => Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: 8.0,
+                  children: [
+                    SizedBox(
+                      height: 300,
+                      width: 300,
+                      child: Image.network(coffee.file),
+                    ),
+                    const Text('Didn\'t like this coffee?'),
+                    ElevatedButton(
+                      onPressed: () => cubit.fetchCoffee(),
+                      child: const Text('Another one'),
+                    ),
+                    const Text('Did you like this coffee?'),
+                    ElevatedButton(
+                      onPressed: () => favoriteCubit.addFavorite(coffee),
+                      child: const Text('Like'),
+                    ),
+
+                    IconButton.filled(
+                      onPressed: () => notificationService.showNotification(),
+                      icon: Icon(Icons.add),
+                    ),
+                  ],
+                ),
+                ErrorHomeState(message: final message) => Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: 8.0,
+                  children: [
+                    Text(
+                      'Error: $message',
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                    ElevatedButton(
+                      onPressed: () => cubit.fetchCoffee(),
+                      child: const Text('Retry'),
+                    ),
+                  ],
+                ),
+              };
+            },
+          ),
         ),
       ),
     );

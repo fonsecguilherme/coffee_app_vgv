@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import '../../domain/model/coffee_model.dart';
 
 abstract class ILocalDataSource {
-  Future<void> save(CoffeeModel coffee);
+  Future<bool> save(CoffeeModel coffee);
   Future<List<CoffeeModel>> getAll();
   Future<void> clear();
   Future<void> remove(String path);
@@ -15,7 +15,7 @@ abstract class ILocalDataSource {
 
 class LocalCoffeeDataSource implements ILocalDataSource {
   @override
-  Future<void> save(CoffeeModel coffee) async {
+  Future<bool> save(CoffeeModel coffee) async {
     try {
       final directory = await getApplicationDocumentsDirectory();
 
@@ -26,10 +26,11 @@ class LocalCoffeeDataSource implements ILocalDataSource {
       final file = File(filePath);
 
       if (await file.exists()) {
-        return;
+        return false;
       }
 
       await file.writeAsBytes(coffee.bytes!);
+      return true;
     } catch (e) {
       rethrow;
     }
