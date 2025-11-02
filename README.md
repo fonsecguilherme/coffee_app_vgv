@@ -170,6 +170,7 @@ Tests cover:
 ## Future Improvements
 
 * Implement schedule notifications.
+* Refactor DataSource implementation
 * Add internationalization (i18n) support.
 * Create integration tests for navigation flow.
 
