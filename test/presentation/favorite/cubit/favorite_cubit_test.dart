@@ -76,13 +76,14 @@ void main() {
     );
 
     blocTest<FavoriteCubit, FavoriteState>(
-      'AddFavorite emits [LoadFavoriteState] when an empty list is returned.',
+      'AddFavorite emits [LoadFavoriteState] when return a populated list.',
+
       build: () {
         when(() => _localDataSource.save(any())).thenAnswer((_) async => {});
 
         when(
           () => _localDataSource.getAll(),
-        ).thenAnswer((_) async => [CoffeeModel(file: '')]);
+        ).thenAnswer((_) async => [CoffeeModel(file: 'file')]);
 
         return FavoriteCubit(_localDataSource);
       },
@@ -93,7 +94,7 @@ void main() {
     );
 
     blocTest<FavoriteCubit, FavoriteState>(
-      'AddFavorite emits [ErrorFavoriteState] when Coffee is added to data source.',
+      'AddFavorite emits [ErrorFavoriteState] when datasource returns an exception.',
       build: () {
         when(() => _localDataSource.save(any())).thenAnswer((_) async => {});
 
@@ -105,7 +106,7 @@ void main() {
       },
       act: (cubit) => cubit.addFavorite(CoffeeModel(file: 'file')),
       expect: () => <FavoriteState>[
-        ErrorFavoriteState(message: 'Exception in fetchFavorites'),
+        ErrorFavoriteState(message: 'Exception: Exception in addFavorite'),
       ],
     );
   });
@@ -125,13 +126,13 @@ void main() {
     );
 
     blocTest<FavoriteCubit, FavoriteState>(
-      'removeFavorite emits [LoadFavoriteState] when an empty list is returned.',
+      'removeFavorite emits [LoadFavoriteState] return a populated list.',
       build: () {
         when(() => _localDataSource.remove(any())).thenAnswer((_) async => {});
 
         when(
           () => _localDataSource.getAll(),
-        ).thenAnswer((_) async => [CoffeeModel(file: '')]);
+        ).thenAnswer((_) async => [CoffeeModel(file: 'file')]);
 
         return FavoriteCubit(_localDataSource);
       },
@@ -142,19 +143,19 @@ void main() {
     );
 
     blocTest<FavoriteCubit, FavoriteState>(
-      'removeFavorite emits [ErrorFavoriteState] when Coffee is added to data source.',
+      'removeFavorite emits [ErrorFavoriteState] when datasource returns an exception.',
       build: () {
         when(() => _localDataSource.remove(any())).thenAnswer((_) async => {});
 
         when(() => _localDataSource.getAll()).thenAnswer(
-          (_) async => Future.error(Exception('Exception in addFavorite')),
+          (_) async => Future.error(Exception('Exception in removeFavorite')),
         );
 
         return FavoriteCubit(_localDataSource);
       },
       act: (cubit) => cubit.removeFavorite('file'),
       expect: () => <FavoriteState>[
-        ErrorFavoriteState(message: 'Exception in fetchFavorites'),
+        ErrorFavoriteState(message: 'Exception: Exception in removeFavorite'),
       ],
     );
   });
@@ -181,7 +182,9 @@ void main() {
       },
       act: (cubit) => cubit.clearFavorites(),
       expect: () => <FavoriteState>[
-        ErrorFavoriteState(message: 'Failed to clear favorites list'),
+        ErrorFavoriteState(
+          message: 'Exception: Failed to clear favorites list',
+        ),
       ],
     );
   });
