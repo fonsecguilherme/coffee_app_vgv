@@ -1,8 +1,11 @@
+import 'package:coffee_app_vgv/app.dart';
 import 'package:coffee_app_vgv/core/notification_service.dart';
 import 'package:coffee_app_vgv/presentation/favorite/export_favorite.dart';
 import 'package:coffee_app_vgv/presentation/home/export_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../core/app_strings.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -28,7 +31,7 @@ class _HomeViewState extends State<HomeView>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: AppBar(title: const Text('Home View')),
+      appBar: AppBar(title: const Text(AppStrings.appBarHomeText)),
       body: Center(
         child: BlocListener<FavoriteCubit, FavoriteState>(
           listener: (context, state) {
@@ -57,15 +60,15 @@ class _HomeViewState extends State<HomeView>
                       width: 300,
                       child: Image.network(coffee.file),
                     ),
-                    const Text('Didn\'t like this coffee?'),
+                    const Text(AppStrings.homeDidntLikeCoffeeText),
                     ElevatedButton(
                       onPressed: () => cubit.fetchCoffee(),
-                      child: const Text('Another one'),
+                      child: const Text(AppStrings.homeAnotherOneButtonText),
                     ),
-                    const Text('Did you like this coffee?'),
+                    const Text(AppStrings.homeDidYouLikeCoffeeText),
                     ElevatedButton(
                       onPressed: () => favoriteCubit.addFavorite(coffee),
-                      child: const Text('Like'),
+                      child: const Text(AppStrings.homeLikeButtonText),
                     ),
 
                     IconButton.filled(
@@ -84,7 +87,7 @@ class _HomeViewState extends State<HomeView>
                     ),
                     ElevatedButton(
                       onPressed: () => cubit.fetchCoffee(),
-                      child: const Text('Retry'),
+                      child: const Text(AppStrings.homeRetryButtonText),
                     ),
                   ],
                 ),
