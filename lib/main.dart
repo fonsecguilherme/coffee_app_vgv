@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/http_client.dart';
 import 'core/notification_service.dart';
 import 'data/datasource/local_coffee_datasource.dart';
-import 'domain/coffee_repository.dart';
+import 'data/repositories/coffee_repository.dart';
 import 'domain/repositories/i_coffee_repository.dart';
 import 'domain/service/i_http_client.dart';
 
