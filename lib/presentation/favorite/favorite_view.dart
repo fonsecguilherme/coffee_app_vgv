@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:coffee_app_vgv/core/app_strings.dart';
 import 'package:coffee_app_vgv/presentation/favorite/export_favorite.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +22,7 @@ class _FavoriteViewState extends State<FavoriteView> {
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
       actionsPadding: EdgeInsets.only(right: 8.0),
-      title: const Text('Favorite View'),
+      title: const Text(AppStrings.appBarFavoriteText),
       actions: [
         GestureDetector(
           onTap: () => context.read<FavoriteCubit>().clearFavorites(),
@@ -33,7 +34,7 @@ class _FavoriteViewState extends State<FavoriteView> {
       builder: (context, state) {
         return switch (state) {
           InitialFavoriteState() => const Center(
-            child: Text('You have no favorites yet.'),
+            child: Text(AppStrings.favoriteNoFavoritesText),
           ),
           LoadFavoriteState() => GridView.builder(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -59,15 +60,11 @@ class _FavoriteViewState extends State<FavoriteView> {
                   ),
                   onLongPress: () async {
                     final params = ShareParams(
-                      text: 'Have you tried this one?',
+                      text: AppStrings.shareText,
                       files: [XFile(coffee.localPath!)],
                     );
 
-                    final result = await SharePlus.instance.share(params);
-
-                    if (result.status == ShareResultStatus.dismissed) {
-                      print('Did you not like the pictures?');
-                    }
+                    await SharePlus.instance.share(params);
                   },
                 ),
               );
@@ -76,6 +73,8 @@ class _FavoriteViewState extends State<FavoriteView> {
           ErrorFavoriteState() => Center(
             child: Text('Error: ${state.message}'),
           ),
+
+          _ => const Center(child: Text('Default state')),
         };
       },
     ),

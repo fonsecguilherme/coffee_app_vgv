@@ -27,7 +27,11 @@ class FavoriteCubit extends Cubit<FavoriteState> {
 
   Future<void> addFavorite(CoffeeModel coffee) async {
     try {
-      await localDataSource.save(coffee);
+      final saved = await localDataSource.save(coffee);
+
+      if (!saved) {
+        return;
+      }
 
       final updatedFavorites = await localDataSource.getAll();
 
@@ -35,10 +39,8 @@ class FavoriteCubit extends Cubit<FavoriteState> {
         emit(InitialFavoriteState());
         return;
       }
-
+      emit(SuccessAddCoffeeFavoriteState(favorites: updatedFavorites));
       emit(LoadFavoriteState(favorites: updatedFavorites));
-
-      fetchFavorites();
     } catch (e) {
       emit(ErrorFavoriteState(message: e.toString()));
     }
