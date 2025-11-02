@@ -8,6 +8,7 @@ class HttpFailure extends Failure {
   const HttpFailure({this.statusCode})
     : super('Error HTTP: ${statusCode ?? 'Unknown'}');
 }
+
 class UnknownFailure extends Failure {
   const UnknownFailure() : super('Unknown error occurred');
 }

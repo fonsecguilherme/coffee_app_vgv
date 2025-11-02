@@ -10,7 +10,6 @@ class AppStrings {
   static const String homeLikeButtonText = 'Like';
   static const String homeRetryButtonText = 'Retry';
 
-
   //Favorite View texts
   static const String favoriteNoFavoritesText = 'You have no favorites yet.';
   static const String favoriteErrorTextPrefix = 'Error: ';
